@@ -1,6 +1,7 @@
 /** @format */
 import { component$ } from '@builder.io/qwik';
 import { HelloMessage } from '~/components/hello-message/hello-message';
+import { InputComponent } from '~/components/input/input-component';
 
 /**
  * export default is needed.
@@ -18,9 +19,17 @@ export default component$((/**inputs*/) => {
 				alignItems: 'center',
 				display: 'flex',
 				justifyContent: 'center',
+				flexDirection: 'column',
 			}}
 		>
 			<HelloMessage />
+
+			<InputComponent
+				message='Testing props'
+				version={4}
+			/>
+
+			<InputComponent message='Testing props without version' />
 		</div>
 	);
 });
