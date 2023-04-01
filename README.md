@@ -161,3 +161,34 @@ export default component$(() => {
 	);
 });
 ```
+
+## Conditional render
+
+### conditional.tsx
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+
+interface Props {
+	show: boolean;
+}
+
+export const ConditionalComponent = component$<Props>(({ show }) => {
+	return <>{show && <h1>I'm visible</h1>}</>;
+});
+```
+
+### index.tsx
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+import { ConditionalComponent } from '~/components/conditional/conditional';
+
+export default component$(() => {
+	return (
+		<div>
+			<ConditionalComponent show={true} />
+		</div>
+	);
+});
+```

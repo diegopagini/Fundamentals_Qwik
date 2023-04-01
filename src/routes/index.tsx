@@ -1,5 +1,6 @@
 /** @format */
 import { component$ } from '@builder.io/qwik';
+import { ConditionalComponent } from '~/components/conditional/conditional';
 import { EventHanlder } from '~/components/event-handler/event-handler';
 import { HelloMessage } from '~/components/hello-message/hello-message';
 import { InputComponent } from '~/components/input/input-component';
@@ -33,6 +34,8 @@ export default component$((/**inputs*/) => {
 			<InputComponent message='Testing props without version' />
 
 			<EventHanlder />
+
+			<ConditionalComponent show={true} />
 		</div>
 	);
 });
