@@ -120,3 +120,44 @@ export const EventHanlder = component$(() => {
 	return <button onClick$={() => sayHello()}>Say Hello</button>;
 });
 ```
+
+### by prop
+
+### event-handler.tsx
+
+```tsx
+import { component$, PropFunction } from '@builder.io/qwik';
+
+interface Props {
+	message: string;
+	onShowMessage: PropFunction<(message: string) => void>;
+}
+
+export const EventHanlder = component$(({ message, onShowMessage }: Props) => {
+	return (
+		<div>
+			<button onClick$={() => onShowMessage(message)}>Show Message</button>;
+		</div>
+	);
+});
+```
+
+### index.tsx
+
+```tsx
+import { $, component$ } from '@builder.io/qwik';
+import { EventHanlder } from '~/components/event-handler/event-handler';
+
+export default component$(() => {
+	const showMessage = $((message: string) => alert(message));
+
+	return (
+		<div>
+			<EventHanlder
+				message='Hello World!'
+				onShowMessage={showMessage}
+			/>
+		</div>
+	);
+});
+```

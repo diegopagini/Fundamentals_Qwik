@@ -1,7 +1,11 @@
 /** @format */
-import { $, component$ } from '@builder.io/qwik';
+import { $, component$, PropFunction } from '@builder.io/qwik';
 
-export const EventHanlder = component$(() => {
+interface Props {
+	onShowMessage?: PropFunction<(message: string) => void>;
+}
+
+export const EventHanlder = component$<Props>(() => {
 	/**
 	 * functions must be serialized using "$" from qwik
 	 */
