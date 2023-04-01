@@ -4,6 +4,7 @@ import { ConditionalComponent } from '~/components/conditional/conditional';
 import { EventHanlder } from '~/components/event-handler/event-handler';
 import { HelloMessage } from '~/components/hello-message/hello-message';
 import { InputComponent } from '~/components/input/input-component';
+import { ListElement } from '~/components/list/list-elements';
 
 /**
  * export default is needed.
@@ -36,6 +37,8 @@ export default component$((/**inputs*/) => {
 			<EventHanlder />
 
 			<ConditionalComponent show={true} />
+
+			<ListElement />
 		</div>
 	);
 });
