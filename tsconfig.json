@@ -1,26 +1,24 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "target": "ES2017",
-    "module": "ES2020",
-    "lib": ["es2020", "DOM", "WebWorker", "DOM.Iterable"],
-    "jsx": "react-jsx",
-    "jsxImportSource": "@builder.io/qwik",
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "incremental": true,
-    "isolatedModules": true,
-    "outDir": "tmp",
-    "noEmit": true,
-    "types": ["node", "vite/client"],
-    "paths": {
-      "~/*": ["./src/*"]
-    }
-  },
-  "files": ["./.eslintrc.cjs"],
-  "include": ["src"]
+	"compilerOptions": {
+		"allowJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"incremental": true,
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"jsxImportSource": "@builder.io/qwik",
+		"lib": ["es2020", "DOM", "WebWorker", "DOM.Iterable"],
+		"module": "ES2020",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"outDir": "tmp",
+		"paths": { "~/*": ["./src/*"] },
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ES2017",
+		"types": ["node", "vite/client"]
+	},
+	"files": ["./.eslintrc.cjs"],
+	"include": ["src"]
 }

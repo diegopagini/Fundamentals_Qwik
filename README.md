@@ -92,6 +92,8 @@ export default component$((/**inputs*/) => {
 });
 ```
 
+---
+
 ## Event hanlder
 
 ### inline
@@ -162,6 +164,8 @@ export default component$(() => {
 });
 ```
 
+---
+
 ## Conditional render
 
 ### conditional.tsx
@@ -193,6 +197,8 @@ export default component$(() => {
 });
 ```
 
+---
+
 ## Loops
 
 ### list-elements.tsx
@@ -209,6 +215,140 @@ export const ListElement = component$(() => {
 				<li key={index}>{item}</li>
 			))}
 		</ul>
+	);
+});
+```
+
+---
+
+## Style components
+
+### style-component.tsx with useStyles$()
+
+```tsx
+import { component$, useStyles$ } from '@builder.io/qwik';
+
+import { BlockComponent } from './styles';
+
+export const StyleComponent = component$(() => {
+	useStyles$(BlockComponent);
+
+	return (
+		<div class='block'>
+			<p class='block__text'>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quasi reprehenderit
+				minima facere vero? Nam sapiente aliquid, blanditiis itaque dolorum sint veritatis quo quia
+				ipsa similique tempore. Alias, officia atque.
+			</p>
+		</div>
+	);
+});
+```
+
+### or
+
+```tsx
+import { component$, useStyles$ } from '@builder.io/qwik';
+
+import styles from './styles.css';
+
+export const StyleComponent = component$(() => {
+	useStyles$(styles);
+
+	return (
+		<div class='block'>
+			<p class='block__text'>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quasi reprehenderit
+				minima facere vero? Nam sapiente aliquid, blanditiis itaque dolorum sint veritatis quo quia
+				ipsa similique tempore. Alias, officia atque.
+			</p>
+		</div>
+	);
+});
+```
+
+### styles.tsx
+
+```tsx
+export const BlockComponent = `
+.block {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.block__text {
+  font-size: 1.5rem;
+}`;
+```
+
+### or
+
+### styles.css
+
+```css
+.block {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.block__text {
+	color: blue;
+	font-size: 1.5rem;
+}
+```
+
+### inline-component.tsx
+
+```tsx
+import { component$ } from '@builder.io/qwik';
+
+export const InlineComponent = component$(() => {
+	return (
+		<div
+			style={{
+				alignItems: 'center',
+				display: 'flex',
+				justifyContent: 'center',
+				textAlign: 'center',
+			}}
+		>
+			<p
+				style={{
+					color: 'red',
+					fontSize: '1.5rem',
+				}}
+			>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quasi reprehenderit
+				minima facere vero? Nam sapiente aliquid, blanditiis itaque dolorum sint veritatis quo quia
+				ipsa similique tempore. Alias, officia atque.
+			</p>
+		</div>
+	);
+});
+```
+
+## useStylesScoped$()
+
+```tsx
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
+
+import { Styles } from './styles';
+
+export const BestWay = component$(() => {
+	useStylesScoped$(Styles);
+
+	return (
+		<div class='block'>
+			<p class='block__text'>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quasi reprehenderit
+				minima facere vero? Nam sapiente aliquid, blanditiis itaque dolorum sint veritatis quo quia
+				ipsa similique tempore. Alias, officia atque.
+			</p>
+		</div>
 	);
 });
 ```
