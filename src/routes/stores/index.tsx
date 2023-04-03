@@ -1,5 +1,6 @@
 /** @format */
 import { $, component$, useStore } from '@builder.io/qwik';
+import { ContextParent } from '~/components/context/context-parent';
 
 export default component$(() => {
 	const messages = ['First message', 'Second message', 'Third message'];
@@ -19,6 +20,8 @@ export default component$(() => {
 			<h1>Qwik Stores: </h1>
 			<h2>{messages[store.index]}</h2>
 			<button onClick$={showNextMessate}>Next Message</button>
+
+			<ContextParent />
 		</>
 	);
 });

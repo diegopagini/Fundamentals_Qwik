@@ -443,3 +443,52 @@ export default component$(() => {
 	);
 });
 ```
+
+### useContext
+
+### context.ts
+
+```typescript
+export const MessagesContext = createContext<{ messages: string[]; index: number }>('MESSAGES');
+```
+
+### context.parent.tsx
+
+```tsx
+import { component$, useContextProvider, useStore } from '@builder.io/qwik';
+
+import { MessagesContext } from './context';
+import { ContextChild } from './context-child';
+
+export const ContextParent = component$(() => {
+	const messages = ['First message', 'Second message', 'Third message'];
+
+	const store = useStore({
+		messages,
+		index: 0,
+	});
+
+	useContextProvider(MessagesContext, store);
+
+	return (
+		<>
+			<ContextChild />
+			<button onClick$={() => store.index++}>Next Message</button>
+		</>
+	);
+});
+```
+
+### context.child.tsx
+
+```tsx
+import { component$, useContext } from '@builder.io/qwik';
+
+import { MessagesContext } from './context';
+
+export const ContextChild = component$(() => {
+	const { messages, index } = useContext(MessagesContext);
+
+	return <div>{messages[index]}</div>;
+});
+```
