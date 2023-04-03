@@ -1,15 +1,23 @@
 /** @format */
-import { component$, Resource, useResource$ } from '@builder.io/qwik';
+import { component$, Resource, useResource$, useStore } from '@builder.io/qwik';
 import { Course, getCourses } from '~/helpers/get-courses';
 
 export default component$(() => {
-	/** With resumability */
-	const resource = useResource$(async () => getCourses());
-	/** The data to show is going to be SSR. So, it not be shown any "spinner" */
+	const store = useStore({
+		reloadCounter: 0,
+	});
+
+	const resource = useResource$<Course[]>((ctx) => {
+		/** To manually make the http request again */
+		ctx.track(() => store.reloadCounter);
+		/** The request is going to be linked to the counter. So, any time that property change is going to make the request again */
+		return getCourses();
+	});
 
 	return (
 		<>
-			{/** Resource is a tag from Qwik prepared for http requests */}
+			<button onClick$={() => store.reloadCounter++}>Reload courses</button>
+
 			<Resource
 				value={resource}
 				onPending={() => <span>Loading...</span>}
