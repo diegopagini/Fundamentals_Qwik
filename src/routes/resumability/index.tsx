@@ -1,5 +1,5 @@
 /** @format */
-import { component$, useResource$ } from '@builder.io/qwik';
+import { component$, Resource, useResource$ } from '@builder.io/qwik';
 import { Course, getCourses } from '~/helpers/get-courses';
 
 export default component$(() => {
@@ -9,24 +9,29 @@ export default component$(() => {
 
 	return (
 		<>
-			{/** Spinner */}
-			{resource.loading && <span>Loading...</span>}
-			{/** To show the data "then" is needed */}
-			{resource.value.then((items: Course[]) =>
-				items.map((course: Course) => (
-					<div
-						style={{
-							alignItems: 'center',
-							display: 'flex',
-							flexDirection: 'column',
-							justifyContent: 'center',
-						}}
-					>
-						<h3>{course.description}</h3>
-						<span>{course.category}</span>
-					</div>
-				))
-			)}
+			{/** Resource is a tag from Qwik prepared for http requests */}
+			<Resource
+				value={resource}
+				onPending={() => <span>Loading...</span>}
+				onRejected={() => <span>Error...</span>}
+				onResolved={(courses: Course[]) => (
+					<>
+						{courses.map((course: Course) => (
+							<div
+								style={{
+									alignItems: 'center',
+									display: 'flex',
+									flexDirection: 'column',
+									justifyContent: 'center',
+								}}
+							>
+								<h3>{course.description}</h3>
+								<span>{course.category}</span>
+							</div>
+						))}
+					</>
+				)}
+			/>
 		</>
 	);
 });
