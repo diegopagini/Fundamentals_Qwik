@@ -492,3 +492,104 @@ export const ContextChild = component$(() => {
 	return <div>{messages[index]}</div>;
 });
 ```
+
+---
+
+## HTTP
+
+### get-courses.ts
+
+```typescript
+export interface Course {
+	category: string;
+	description: string;
+	iconUrl: string;
+	id: number;
+	lessonsCount: number;
+	longDescription: string;
+	price: number;
+	seqNo: number;
+	url: string;
+}
+
+export const getCourses = async (): Promise<Course[]> => {
+	return (await fetch('http://localhost:9000/api/courses')).json();
+};
+```
+
+### resources/index.tsx (manual call)
+
+```tsx
+import { $, component$, useStore } from '@builder.io/qwik';
+import { Course, getCourses } from '~/helpers/get-courses';
+
+export default component$(() => {
+	const store = useStore<{ courses: Course[] }>({
+		courses: [],
+	});
+
+	/** With not resumability */
+	const getData = $(async () => {
+		const courses = await getCourses();
+		store.courses = courses;
+	});
+
+	return (
+		<>
+			{/** To get the data */}
+			<button onClick$={getData}>Get Data</button>
+
+			{/** To show the data */}
+			{store.courses.map((item) => (
+				<div
+					style={{
+						alignItems: 'center',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+					}}
+				>
+					<h3>{item.description}</h3>
+					<span>{item.category}</span>
+				</div>
+			))}
+		</>
+	);
+});
+```
+
+### resumability/index.tsx (in initialization)
+
+```tsx
+import { component$, useResource$ } from '@builder.io/qwik';
+import { Course, getCourses } from '~/helpers/get-courses';
+
+export default component$(() => {
+	/** With resumability */
+	const resource = useResource$(async () => getCourses());
+	/** The data to show is going to be SSR. So, it not be shown any "spinner" */
+
+	return (
+		<>
+			{/** Spinner */}
+			{resource.loading && <span>Loading...</span>}
+			{/** To show the data "then" is needed */}
+			{resource.value.then((items: Course[]) =>
+				items.map((course: Course) => (
+					<div
+						style={{
+							alignItems: 'center',
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'center',
+						}}
+					>
+						<h3>{course.description}</h3>
+						<span>{course.category}</span>
+					</div>
+				))
+			)}
+		</>
+	);
+});
+```
