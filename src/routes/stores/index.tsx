@@ -1,54 +1,27 @@
-import { component$, createContext, useContext, useContextProvider, useStore } from "@builder.io/qwik";
-
-interface MessagesStore {
-  messages: string[],
-  index: number
-}
-
-export const MessagesContext = createContext<MessagesStore>("MESSAGES");
+/** @format */
+import { $, component$, useStore } from '@builder.io/qwik';
+import { ContextParent } from '~/components/context/context-parent';
 
 export default component$(() => {
+	const messages = ['First message', 'Second message', 'Third message'];
+	/**
+	 * It is not a good idea to unstructure the object because the constants cannot be reassigned.
+	 */
+	const store = useStore({
+		index: 0,
+	});
 
-  const messages = [
-    "Hello World",
-    "Welcome to this Qwik Course",
-    "Learn the Qwik Framework!"
-  ];
+	const showNextMessate = $(() => {
+		if (store.index < messages.length - 1) store.index++;
+	});
 
-  const store = useStore({
-    messages,
-    index: 0
-  });
+	return (
+		<>
+			<h1>Qwik Stores: </h1>
+			<h2>{messages[store.index]}</h2>
+			<button onClick$={showNextMessate}>Next Message</button>
 
-  useContextProvider(MessagesContext, store)
-
-  return (
-    <>
-      <h1>Qwik Stores: </h1>
-
-      <Message />
-
-      <button onClick$={() => store.index++}>Next Message</button>
-    </>
-  )
-})
-
-
-export const Message = component$(() => {
-
-  const store = useContext(MessagesContext);
-
-  const {messages, index} = store;
-
-  return (
-    <h3>{messages[index]} </h3>
-  );
+			<ContextParent />
+		</>
+	);
 });
-
-
-
-
-
-
-
-

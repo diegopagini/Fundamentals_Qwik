@@ -1,8 +1,9 @@
+/** @format */
+
 header {
-  display: flex;
+	display: flex;
 }
 
 header ul {
-  list-style: none;
+	list-style: none;
 }
-

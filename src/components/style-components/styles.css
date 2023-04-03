@@ -1,0 +1,13 @@
+/** @format */
+
+.block {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.block__text {
+	color: blue;
+	font-size: 1.5rem;
+}

@@ -1,46 +1,37 @@
-import { component$, useResource$, Resource, $, useStore } from "@builder.io/qwik";
-import { Course } from "~/models/course";
+/** @format */
+import { $, component$, useStore } from '@builder.io/qwik';
+import { Course, getCourses } from '~/helpers/get-courses';
 
 export default component$(() => {
+	const store = useStore<{ courses: Course[] }>({
+		courses: [],
+	});
 
-  const store = useStore({
-    reloadCounter: 0
-  });
+	/** With not resumability */
+	const getData = $(async () => {
+		const courses = await getCourses();
+		store.courses = courses;
+	});
 
-  const resource = useResource$<Course[]>((ctx) => {
-    ctx.track(() => store.reloadCounter);
-    return getCourses();
-  });
+	return (
+		<>
+			{/** To get the data */}
+			<button onClick$={getData}>Get Data</button>
 
-  return (
-    <>
-
-      <button onClick$={() => store.reloadCounter++}>Reload Courses</button>
-
-      <Resource
-        value={resource}
-        onPending={() => (
-          <h1>Loading ...</h1>
-        )}
-        onRejected={() => (
-          <h1>Request failed.</h1>
-        )}
-        onResolved={courses => (
-          <>
-            {
-              courses.map(course => (
-                <h3>{course.description}</h3>
-              ))
-            }
-          </>
-        )} />
-    </>
-  )
-})
-
-export async function getCourses() {
-  const response = await fetch(`http://localhost:9000/api/courses`);
-  return response.json();
-}
-
-
+			{/** To show the data */}
+			{store.courses.map((item) => (
+				<div
+					style={{
+						alignItems: 'center',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+					}}
+				>
+					<h3>{item.description}</h3>
+					<span>{item.category}</span>
+				</div>
+			))}
+		</>
+	);
+});

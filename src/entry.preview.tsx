@@ -1,4 +1,4 @@
-/*
+/**
  * WHAT IS THIS FILE?
  *
  * It's the bundle entry point for `npm run preview`.
@@ -9,10 +9,13 @@
  * Learn more about Vite's preview command:
  * - https://vitejs.dev/config/preview-options.html#preview-options
  *
+ * @format
  */
 import { createQwikCity } from '@builder.io/qwik-city/middleware/node';
-import render from './entry.ssr';
 import qwikCityPlan from '@qwik-city-plan';
+
+import render from './entry.ssr';
+
 
 /**
  * The default export is the QwikCity adaptor used by Vite preview.

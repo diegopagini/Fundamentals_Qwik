@@ -1,43 +1,56 @@
-import { component$, $ } from "@builder.io/qwik";
-import { HelloMessage } from "~/components/hello-message/hello-message";
+/** @format */
+import { component$ } from '@builder.io/qwik';
+import { ConditionalComponent } from '~/components/conditional/conditional';
+import { EventHanlder } from '~/components/event-handler/event-handler';
+import { HelloMessage } from '~/components/hello-message/hello-message';
+import { InputComponent } from '~/components/input/input-component';
+import { ListElement } from '~/components/list/list-elements';
+import { BestWay } from '~/components/style-components/best-way';
+import { ConditionalStylesComponent } from '~/components/style-components/conditional-styles';
+import { InlineComponent } from '~/components/style-components/inline-component';
+import { StyleComponent } from '~/components/style-components/style-component';
 
+/**
+ * export default is needed.
+ */
+export default component$((/**inputs*/) => {
+	/** Qwik is SSR by default */
+	console.log('This console.log is going to be seen in the server, not in the browser');
 
-export default component$(() => {
+	return (
+		<div
+			/** Different like in React, Qwik is able to use the class word */
+			class='container'
+			/** Style components are allowed like in React */
+			style={{
+				alignItems: 'center',
+				display: 'flex',
+				justifyContent: 'center',
+				flexDirection: 'column',
+			}}
+		>
+			<HelloMessage />
 
-  console.log(`Initializing Hello World component.`);
+			<InputComponent
+				message='Testing props'
+				version={4}
+			/>
 
-  const sayHello = $(() => {
-    alert("Hello World!");
-  });
+			<InputComponent message='Testing props without version' />
 
-  const messages = [
-    "Hello World",
-    "Welcome to this Qwik Course",
-    "Learn the Qwik Framework!"
-  ];
+			<EventHanlder />
 
-  const onShowMessageClicked = $((message:string) => alert(message));
+			<ConditionalComponent show={true} />
 
-  return (
-    <>
+			<ListElement />
 
-      { messages.map((message, index) => (
-        <HelloMessage key={index} message={message} courseVersion={index}
-                      showButton={true} onShowMessage={onShowMessageClicked} />
-      ))
+			<StyleComponent />
 
-      }
+			<InlineComponent />
 
-      <button onClick$={sayHello}>Say Hello</button>
+			<BestWay />
 
-    </>
-  );
-
+			<ConditionalStylesComponent />
+		</div>
+	);
 });
-
-
-
-
-
-
-

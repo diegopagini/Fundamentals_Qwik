@@ -1,44 +1,12 @@
-import { component$, PropFunction, useStylesScoped$ } from "@builder.io/qwik";
+/**
+ * @format
+ */
+import { component$ } from '@builder.io/qwik';
 
-import styles from './hello-message.css?inline';
-
-interface HelloMessageProps {
-  message:string,
-  courseVersion?:number,
-  showButton: boolean,
-  onShowMessage: PropFunction<(message:string) => void>;
-}
-
-export const HelloMessage = component$((props: HelloMessageProps) => {
-
-  useStylesScoped$(styles);
-
-  const {message, courseVersion, onShowMessage, showButton} = props;
-
-  const cssClasses = ['hello-message'];
-
-  if (courseVersion == 1) {
-    cssClasses.push('highlighted');
-  }
-
-  const customStyles = (courseVersion == 2) ? {
-    color: 'red',
-    'text-decoration': 'underline'
-  } : {};
-
-  return (
-    <div class='container'>
-      {
-        <>
-
-        <div class={cssClasses} style={customStyles}>{message}: version {courseVersion}</div>
-
-          {showButton && (
-            <button onClick$={() => onShowMessage(message)}>Show Message</button>
-          )}
-
-        </>
-      }
-    </div>
-  );
+/** export must be used allways */
+export const HelloMessage = component$(() => {
+	const hello = 'Hello ';
+	const world = 'World!!!';
+	/**The way to output variables is the same like in react. Because this is jsx */
+	return <h1>{hello + world}</h1>;
 });
