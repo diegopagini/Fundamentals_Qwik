@@ -6,6 +6,7 @@ import { HelloMessage } from '~/components/hello-message/hello-message';
 import { InputComponent } from '~/components/input/input-component';
 import { ListElement } from '~/components/list/list-elements';
 import { BestWay } from '~/components/style-components/best-way';
+import { ConditionalStylesComponent } from '~/components/style-components/conditional-styles';
 import { InlineComponent } from '~/components/style-components/inline-component';
 import { StyleComponent } from '~/components/style-components/style-component';
 
@@ -48,6 +49,8 @@ export default component$((/**inputs*/) => {
 			<InlineComponent />
 
 			<BestWay />
+
+			<ConditionalStylesComponent />
 		</div>
 	);
 });
